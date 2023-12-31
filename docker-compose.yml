@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: $PWD/.ContainerSettings/mysql/Dockerfile
+    user: "${CONTAINERUID}:${CONTAINERGID}"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --secure-file-priv=""
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: R00tP455W0rd
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_HOST}:${DB_PORT}:3306
+    volumes:
+      - $PWD/.ContainerSettings/mysql/data:/var/lib/mysql
+      - $PWD/.ContainerSettings/mysql/initdb.d:/docker-entrypoint-initdb.d
+    restart: always
+  mail:
+    image: axllent/mailpit:v1.8
+    container_name: mailpit
+    ports:
+      - 8025:8025
+      - 1025:1025
