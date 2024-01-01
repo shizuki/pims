@@ -3,7 +3,11 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "db:migrate": "composer db:migrate",
+        "db:seed": "composer db:seed",
+        "db:fresh": "composer db:fresh",
+        "composer": "composer install"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
