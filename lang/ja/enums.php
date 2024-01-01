@@ -71,7 +71,7 @@ return [
         // 'TrenssexualPerson' => '性転換者。',
         // 'TwoSpirit' => 'ネイティブ・アメリカンの伝統的に認識されてきた多様なジェンダー・ロール（性役割）を担う人。',
     ],
-    Gender::class => [
+    Role::class => [
         'General' => '一般',
         'Administrator' => '管理者',
         'Manager' => 'マネージャー',
