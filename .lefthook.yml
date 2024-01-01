@@ -1,0 +1,74 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+# pre-push:
+#   commands:
+#     packages-audit:
+#       tags: frontend security
+#       run: yarn audit
+#     gems-audit:
+#       tags: backend security
+#       run: bundle audit
+#
+# pre-commit:
+#   parallel: true
+#   commands:
+#     eslint:
+#       glob: "*.{js,ts,jsx,tsx}"
+#       run: yarn eslint {staged_files}
+#     rubocop:
+#       tags: backend style
+#       glob: "*.rb"
+#       exclude: '(^|/)(application|routes)\.rb$'
+#       run: bundle exec rubocop --force-exclusion {all_files}
+#     govet:
+#       tags: backend style
+#       files: git ls-files -m
+#       glob: "*.go"
+#       run: go vet {files}
+#   scripts:
+#     "hello.js":
+#       runner: node
+#     "any.go":
+#       runner: go run
+
+# マージ（pull）後の処理
+post-merge:
+  parallel: true
+  commands:
+    # 変更ファイルにyarn.lockが含まれていたら『yarn (install)』
+    yarn:
+      files: git diff --name-only HEAD| grep "yarn.lock" || echo ''
+      root: .
+      run: yarn
+    # 変更ファイルにcomposer.lockが含まれていたら『composer (install)』
+    composer:
+      files: git diff --name-only HEAD| grep "composer.lock" || echo ''
+      root: .
+      run: composer install
+# コミット前の処理
+pre-commit:
+  parallel: true
+  commands:
+    # js/tsの書式修正
+    eslint:
+      glob: "resources/js/**/*.{js,ts}"
+      run: yarn eslint {staged_files} && git add {staged_files}
+    # PHPの書式修正
+    pint:
+      glob: "*.php"
+      run: composer pint {staged_files} && git add {staged_files}
+  scripts:
+    # tblsの実行
+    tbls:
+      files: git diff --name-only HEAD | grep "database/migrations/" || echo ''
+      "refresh-db-documents.sh":
+        runner: bash
+# プッシュ前の処理
+# pre-push:
+#   parallel: true
+#   commands:
+#     # 自動テスト（phpunit）の実行
+#     phpunit: php artisan test

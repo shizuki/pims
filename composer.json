@@ -63,6 +63,9 @@
         ],
         "db:fresh": [
             "@php artisan migrate:fresh"
+        ],
+        "pint": [
+            "./vendor/bin/pint"
         ]
     },
     "extra": {
