@@ -19,6 +19,7 @@ return new class extends Migration
             $table->char('special_skill')->nullable()->comment('特技');
             $table->date('birthday')->nullable()->comment('生年月日');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

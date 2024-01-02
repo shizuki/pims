@@ -62,7 +62,7 @@ relations:
     parentTable: users
     parentColumns:
       - id
-    def: addresses->users
+    def: profiles->users
 # ER図出力フォーマットの設定とか（デフォルトはsvg）
 # er:
 #   format: svg

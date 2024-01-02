@@ -28,6 +28,8 @@ tbls doc --rm-dist
 if [ -f ${REPOSITORY_ROOT_DIRECTORY}/testing.envrc ]; then
     mv ${REPOSITORY_ROOT_DIRECTORY}/testing.envrc ${REPOSITORY_ROOT_DIRECTORY}/.envrc
 fi
+# .env再読み込み
+direnv allow
 # 再生成したテーブル定義書をステージングする
 git add docs/schema/.
 # 元いたディレクトリに戻る
