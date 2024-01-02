@@ -41,7 +41,7 @@ comments:
       user_id: ユーザーID
       hobby: 趣味
       blood_type: 血液型
-      special_skill: 趣味
+      special_skill: 特技
       birthday: 生年月日
       created_at: レコード作成日時
       updated_at: レコード更新日時
