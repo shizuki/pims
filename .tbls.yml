@@ -1,0 +1,73 @@
+# データベース師接続情報
+# 環境変数が使用可能
+dsn: mysql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}_test
+# ドキュメント出力ディレクトリ（相対パス）
+docPath: docs/schema
+# テーブル情報補完
+comments:
+  -
+    table: users
+    tableComment: ユーザーマスタ
+    columnComments:
+      id: PrimaryKey
+      name: 氏名
+      email: メールアドレス
+      sub_email: サブメールアドレス
+      email_verified_at: メール承認日時
+      password: パスワード
+      role: 権限
+      gender: 性表現
+      created_at: レコード作成日時
+      updated_at: レコード更新日時
+      deleted_at: レコードソフトデリート日時
+  -
+    table: addresses
+    tableComment: 住所マスタ
+    columnComments:
+      id: PrimaryKey
+      user_id: ユーザーID
+      kind: 住所種別
+      zipcode: 郵便番号
+      address: 住所
+      street_number: 丁目・番地・号
+      created_at: レコード作成日時
+      updated_at: レコード更新日時
+      deleted_at: レコードソフトデリート日時
+  -
+    table: profiles
+    tableComment: プロフィールマスタ
+    columnComments:
+      id: PrimaryKey
+      user_id: ユーザーID
+      hobby: 趣味
+      blood_type: 血液型
+      special_skill: 趣味
+      birthday: 生年月日
+      created_at: レコード作成日時
+      updated_at: レコード更新日時
+      deleted_at: レコードソフトデリート日時
+relations:
+  -
+    table: addresses
+    columns:
+      - user_id
+    parentTable: users
+    parentColumns:
+      - id
+    def: addresses->users
+  -
+    table: profiles
+    columns:
+      - user_id
+    parentTable: users
+    parentColumns:
+      - id
+    def: addresses->users
+# ER図出力フォーマットの設定とか（デフォルトはsvg）
+# er:
+#   format: svg
+#   format: jpg
+#   format: png
+#   format: mermaid
+# 他にもスキーマから読み取れないリレーションの設定やスキーマのlintも出来る
+# https://github.com/k1LoW/tbls#readme
