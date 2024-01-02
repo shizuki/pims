@@ -56,10 +56,14 @@ pre-commit:
     eslint:
       glob: "resources/js/**/*.{js,ts}"
       run: yarn eslint {staged_files} && git add {staged_files}
+    # PHPの静的解析
+    phpstan:
+      glob: "*.php"
+      run: composer larastan
     # PHPの書式修正
     pint:
       glob: "*.php"
-      run: composer pint {staged_files} && git add {staged_files}
+      run: composer pint -- {staged_files} && git add {staged_files}
   scripts:
     # tblsの実行
     tbls:

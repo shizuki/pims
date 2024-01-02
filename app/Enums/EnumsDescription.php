@@ -10,7 +10,7 @@ trait EnumsDescription
     /**
      * ENUM::Name->description()で、言語ファイルでの設定文字列を返す
      */
-    public function description(): string
+    public function description(): ?string
     {
         $enumName = get_class($this);
         $case = $this->name;
@@ -20,8 +20,9 @@ trait EnumsDescription
         $classDir = implode('/', $tmpClassDir);
         if (file_exists(base_path($classDir.'/translator.php'))) {
             include_once base_path($classDir.'/translator.php');
+            $translator = base_path($classDir.'/translator.php');
 
-            return $translator[$enumName][$case];
+            return $translator[$enumName][$case] ?? null;
         }
 
         return __('enums.'.$enumName.'.'.$case);

@@ -17,5 +17,6 @@
         "Transmasculine",
         "Trenssexual",
         "unserialize"
-    ]
+    ],
+    "intelephense.environment.phpVersion": "8.2"
 }
