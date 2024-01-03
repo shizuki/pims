@@ -65,11 +65,9 @@ pre-commit:
       glob: "*.php"
       run: composer pint -- {staged_files} && git add {staged_files}
   scripts:
-    # tblsの実行
-    tbls:
+    "refresh-db-documents.sh": # tblsの実行
       files: git diff --name-only HEAD | grep "database/migrations/" || echo ''
-      "refresh-db-documents.sh":
-        runner: bash
+      runner: bash
 # プッシュ前の処理
 # pre-push:
 #   parallel: true

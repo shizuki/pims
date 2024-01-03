@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('birthday')->nullable()->comment('生年月日');
             $table->timestamps();
             $table->softDeletes();
+            $table->comment('プロフィールマスタ');
         });
     }
 

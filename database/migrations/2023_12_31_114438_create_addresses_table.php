@@ -20,6 +20,7 @@ return new class extends Migration
             $table->char('street_number', 255)->comment('丁目・番地・号');
             $table->timestamps();
             $table->softDeletes();
+            $table->comment('住所マスタ');
         });
     }
 
