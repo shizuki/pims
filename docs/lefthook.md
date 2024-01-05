@@ -16,7 +16,7 @@ hook名: # pre-commit、pre-push等。.git/hooks参照
   parallel: # オプション。『true』にすると『commands』と『scripts』が並列で実行される。
   実行するもの: # 必須。commands、scripts等。
     コマンド名: # 必須。commandsの場合は実行コマンドのラベルとして認識される（？）。scriptsの場合はここに実行ファイル名を記述する。
-    フィルタ: # オプション。files、glob等。フィルタで実行されるコマンド（またはワンライナー）の結果が空の時は実行されない。
+    フィルタ: # オプション。files、glob等。フィルタで実行されるコマンド（またはワンライナー）の結果に含まれるファイルに対してのみ『run』のコマンドが実行される。
     run: # commandsの場合は必須。『yarn eslint』のように、実際に実行されるコマンドを記述する。
     runner: # scriptsの場合は必須。『コマンド名』に書かれたスクリプトを何を使って実行するかを記述する。
 ```
@@ -24,4 +24,4 @@ hook名: # pre-commit、pre-push等。.git/hooks参照
 この他にも多くの[設定できる項目が用意されています](https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md)
 
 ※ 各フックで実行されるスクリプトファイルは`.lefthook.yml`と同じディレクトリに`.lefthook/フック名`ディレクトリを作り、その中に置く（例：`.lefthook/pre-commit/execute-tbls.sh`）
-※ `pre-commit`フックで処理したファイルは`git add`しないとコミットに反映されません（`{staged_files}`テンプレートを使用するとステージされたファイルのみを対象にすることが出来る）
+※ `pre-commit`フックで処理したファイルは`git add`しないとコミットに反映されません（`{staged_files}`テンプレートを使用するとステージされたファイルのみを対象にすることが出来るが、hookスクリプトで実行された変更はステージされない）

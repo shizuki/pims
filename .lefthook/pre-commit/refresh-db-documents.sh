@@ -1,8 +1,14 @@
 #!/usr/bin/bash
 
+# マイグレーションに更新があるか確認
+MIGRATIONS=`git diff --name-only HEAD | grep "database/migrations/" || echo ''`
+if [ -z ${MIGRATIONS} ]; then
+    echo "No change migrations."
+    exit 0
+fi
 # `tbls`がインストール済みか確認する
-INSTALLED=`dnf list --installed|grep tbls`
-if [ -z ${INSTALLED} ]; then
+tbls -v > /dev/null
+if [ $? -ne 0 ]; then
     # インストールするバージョンの指定（githubのAPIを利用して最新のバージョン番号を取得）
     TBLS_VERSION=`curl -s https://api.github.com/repos/k1LoW/tbls/releases/latest | jq -r .tag_name`
     # `tag_name`には先頭に`v`が付くので削除

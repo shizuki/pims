@@ -40,13 +40,13 @@ post-merge:
   commands:
     # 変更ファイルにyarn.lockが含まれていたら『yarn (install)』
     yarn:
-      files: git diff --name-only HEAD| grep "yarn.lock" || echo ''
-      root: .
+      files: git diff --name-only HEAD
+      glob: '{package.json,yarn.lock}'
       run: yarn
     # 変更ファイルにcomposer.lockが含まれていたら『composer (install)』
     composer:
-      files: git diff --name-only HEAD| grep "composer.lock" || echo ''
-      root: .
+      files: git diff --name-only HEAD
+      glob: '{composer.json,composer.lock}'
       run: composer install
 # コミット前の処理
 pre-commit:
@@ -66,7 +66,6 @@ pre-commit:
       run: composer pint -- {staged_files} && git add {staged_files}
   scripts:
     "refresh-db-documents.sh": # tblsの実行
-      files: git diff --name-only HEAD | grep "database/migrations/" || echo ''
       runner: bash
 # プッシュ前の処理
 # pre-push:
